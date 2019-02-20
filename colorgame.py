@@ -1,5 +1,7 @@
 import tkinter
 import random
+from tkinter.ttk import Progressbar
+from tkinter import ttk
 root=tkinter.Tk()
 colours = ['Red','Blue','Green','Pink','Black', 
            'Yellow','Orange','White','Purple','Brown']
@@ -25,6 +27,22 @@ def nextColour():
 
         label.config(fg=str(colours[1]),text=str(colours[0]))
         scoreLabel.config(text="Score:"+str(score))
+
+def countdown():
+    global timeleft
+
+    if timeleft >0:
+        timeleft-=1
+        timeLabel.config(text="Time left:"+str(timeleft))
+        bar['value']=100-timeleft*100/60
+        if(timeleft <5):
+            style.configure("black.Horizontal.TProgressbar", background='red')
+        elif timeleft<10:
+            style.configure("black.Horizontal.TProgressbar", background='yellow')
+        else:
+            style.configure("black.Horizontal.TProgressbar", background='green')
+
+        timeLabel.after(1000,countdown)
     else:
         root.destroy()
         second=tkinter.Tk()
@@ -34,15 +52,6 @@ def nextColour():
         GameScoreLabel=tkinter.Label(text="score is: "+str(score),font=('Helvetica',12))
         GameOverLabel.pack()
         GameScoreLabel.pack()
-
-def countdown():
-    global timeleft
-
-    if timeleft >0:
-        timeleft-=1
-        timeLabel.config(text="Time left:"+str(timeleft))
-
-        timeLabel.after(1000,countdown)
 root.title("COLORGAME")
 root.geometry("1350x700")
 
@@ -57,6 +66,12 @@ scoreLabel.pack()
 timeLabel = tkinter.Label(root,text = "Time left: "+ str(timeleft),
                           font=('Helvetica',12))
 timeLabel.pack()
+
+style = ttk.Style() 
+style.theme_use('default') 
+style.configure("black.Horizontal.TProgressbar", background='green')
+bar = Progressbar(root,length=400,style='black.Horizontal.TProgressbar')
+bar.pack()
 
 label = tkinter.Label(root,font=('Helvetica',60))
 label.pack()
