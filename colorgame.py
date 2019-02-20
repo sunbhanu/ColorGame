@@ -70,7 +70,7 @@ timeLabel.pack()
 style = ttk.Style() 
 style.theme_use('default') 
 style.configure("black.Horizontal.TProgressbar", background='green')
-bar = Progressbar(root,length=400,style='black.Horizontal.TProgressbar')
+bar = Progressbar(root,length=200,style='black.Horizontal.TProgressbar')
 bar.pack()
 
 label = tkinter.Label(root,font=('Helvetica',60))
